@@ -1,11 +1,12 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { Check, Zap } from "lucide-react";
+import { Check, Zap, Sparkles } from "lucide-react";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { FloatingElements } from "@/components/FloatingElements";
 
 const pricingPlans = [
   {
@@ -63,16 +64,20 @@ const Pricing = () => {
 
   return (
     <ThemeProvider>
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-background relative">
+        <FloatingElements />
         <Navigation />
-        
+
         {/* Hero Section */}
         <section className="pt-32 pb-16 relative overflow-hidden">
           <div className="absolute inset-0">
             <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-glow-pulse" />
-            <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-secondary/10 rounded-full blur-3xl animate-glow-pulse" style={{ animationDelay: "2s" }} />
+            <div
+              className="absolute bottom-0 right-1/4 w-96 h-96 bg-secondary/10 rounded-full blur-3xl animate-glow-pulse"
+              style={{ animationDelay: "2s" }}
+            />
           </div>
-          
+
           <div className="container mx-auto px-4 relative z-10">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -152,7 +157,9 @@ const Pricing = () => {
                       <h3 className="text-2xl font-heading font-bold mb-2 gradient-text">
                         {plan.name}
                       </h3>
-                      <p className="text-muted-foreground">{plan.description}</p>
+                      <p className="text-muted-foreground">
+                        {plan.description}
+                      </p>
                     </div>
 
                     <div className="mb-8">

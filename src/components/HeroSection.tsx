@@ -1,12 +1,19 @@
-import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useEffect, useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { ParticleBackground } from "./ParticleBackground";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Play, Code, Rocket, Zap } from "lucide-react";
 
 export const HeroSection = () => {
   const [glitchText, setGlitchText] = useState("JAMUNA SOFT");
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const fullText = "JAMUNA SOFT";
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const { scrollY } = useScroll();
+  const y = useTransform(scrollY, [0, 500], [0, 150]);
+  const opacity = useTransform(scrollY, [0, 300], [1, 0]);
 
   useEffect(() => {
     const glitchChars = "!@#$%^&*()_+-=[]{}|;:,.<>?";
@@ -35,10 +42,27 @@ export const HeroSection = () => {
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (containerRef.current) {
+        const rect = containerRef.current.getBoundingClientRect();
+        setMousePosition({
+          x: e.clientX - rect.left,
+          y: e.clientY - rect.top,
+        });
+      }
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
+
   return (
-    <section
+    <motion.section
+      ref={containerRef}
       id="home"
       className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16 hero-3d"
+      style={{ y, opacity }}
     >
       {/* Enhanced 3D gradient background */}
       <div className="absolute inset-0 bg-gradient-to-br from-background via-card to-background opacity-90" />
@@ -56,6 +80,24 @@ export const HeroSection = () => {
       {/* 3D Depth layers */}
       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/3 to-transparent" />
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-secondary/3 to-transparent" />
+
+      {/* Interactive mouse spotlight */}
+      <motion.div
+        className="absolute w-96 h-96 rounded-full pointer-events-none"
+        style={{
+          background: `radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%)`,
+          left: mousePosition.x - 192,
+          top: mousePosition.y - 192,
+        }}
+        animate={{
+          scale: [1, 1.2, 1],
+        }}
+        transition={{
+          duration: 2,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
 
       {/* Particle background */}
       <ParticleBackground />
@@ -111,35 +153,110 @@ export const HeroSection = () => {
             className="flex flex-col sm:flex-row gap-6 justify-center items-center preserve-3d"
           >
             <motion.div
-              whileHover={{ scale: 1.05, rotateY: 5, translateZ: 10 }}
+              whileHover={{ scale: 1.05, rotateY: 8, translateZ: 15 }}
               whileTap={{ scale: 0.95 }}
-              className="preserve-3d"
+              className="preserve-3d relative"
             >
               <a href="#portfolio">
                 <Button
                   size="lg"
-                  className="glow-primary text-lg px-8 py-6 font-semibold group relative overflow-hidden hero-btn-3d"
+                  className="glow-primary text-lg px-8 py-6 font-semibold group relative overflow-hidden hero-btn-3d bg-gradient-to-r from-primary via-secondary to-accent"
                 >
-                  <span className="relative z-10">Explore Projects</span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-primary via-secondary to-primary bg-[length:200%_100%] animate-gradient-shift opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <span className="relative z-10 flex items-center gap-2">
+                    <Rocket className="w-5 h-5" />
+                    Explore Projects
+                  </span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-accent via-primary to-secondary bg-[length:200%_100%] animate-gradient-shift opacity-0 group-hover:opacity-100 transition-opacity" />
+
+                  {/* Floating particles on hover */}
+                  {[...Array(5)].map((_, i) => (
+                    <motion.div
+                      key={i}
+                      className="absolute w-1 h-1 bg-white rounded-full opacity-0 group-hover:opacity-100"
+                      animate={{
+                        x: [0, Math.random() * 40 - 20],
+                        y: [0, Math.random() * 40 - 20],
+                        opacity: [0, 1, 0],
+                      }}
+                      transition={{
+                        duration: 1,
+                        delay: i * 0.1,
+                        repeat: Infinity,
+                      }}
+                      style={{
+                        left: `${Math.random() * 100}%`,
+                        top: `${Math.random() * 100}%`,
+                      }}
+                    />
+                  ))}
                 </Button>
               </a>
             </motion.div>
 
             <motion.div
-              whileHover={{ scale: 1.05, rotateY: -5, translateZ: 10 }}
+              whileHover={{ scale: 1.05, rotateY: -8, translateZ: 15 }}
               whileTap={{ scale: 0.95 }}
-              className="preserve-3d"
+              className="preserve-3d relative"
             >
               <a href="#contact">
                 <Button
                   size="lg"
                   variant="outline"
-                  className="text-lg px-8 py-6 border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground hero-btn-3d"
+                  className="text-lg px-8 py-6 border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground hero-btn-3d relative group"
                 >
-                  Contact Us
+                  <span className="relative z-10 flex items-center gap-2">
+                    <Zap className="w-5 h-5" />
+                    Contact Us
+                  </span>
+
+                  {/* Border glow effect */}
+                  <motion.div
+                    className="absolute inset-0 border-2 border-primary rounded-lg opacity-0 group-hover:opacity-100"
+                    animate={{
+                      boxShadow: [
+                        "0 0 0 0 rgba(59, 130, 246, 0.4)",
+                        "0 0 0 8px rgba(59, 130, 246, 0)",
+                      ],
+                    }}
+                    transition={{
+                      duration: 1,
+                      repeat: Infinity,
+                    }}
+                  />
                 </Button>
               </a>
+            </motion.div>
+
+            {/* Demo video button */}
+            <motion.div
+              whileHover={{ scale: 1.05, rotateY: 5, translateZ: 15 }}
+              whileTap={{ scale: 0.95 }}
+              className="preserve-3d relative"
+            >
+              <Button
+                size="lg"
+                variant="secondary"
+                onClick={() => setIsVideoPlaying(!isVideoPlaying)}
+                className="text-lg px-8 py-6 hero-btn-3d relative group bg-white/10 backdrop-blur-sm border border-white/20"
+              >
+                <span className="relative z-10 flex items-center gap-2">
+                  <Play className="w-5 h-5" />
+                  Watch Demo
+                </span>
+
+                {/* Ripple effect */}
+                <motion.div
+                  className="absolute inset-0 bg-white/20 rounded-lg"
+                  animate={{
+                    scale: [1, 1.1, 1],
+                    opacity: [0.5, 0, 0.5],
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                  }}
+                />
+              </Button>
             </motion.div>
           </motion.div>
 
@@ -288,6 +405,6 @@ export const HeroSection = () => {
           delay: 3,
         }}
       />
-    </section>
+    </motion.section>
   );
 };

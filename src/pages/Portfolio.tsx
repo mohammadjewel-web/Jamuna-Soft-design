@@ -4,68 +4,80 @@ import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { ProjectCard } from "@/components/ProjectCard";
+import { FloatingElements } from "@/components/FloatingElements";
+import { Sparkles, Star, Zap } from "lucide-react";
 
 const projects = [
   {
     title: "AI Chat Platform",
     description: "Next-gen conversational AI platform with real-time responses",
-    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80",
+    image:
+      "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80",
     tags: ["AI", "React", "Node.js"],
     category: "ai",
   },
   {
     title: "E-Commerce Dashboard",
     description: "Modern analytics dashboard with real-time data visualization",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
+    image:
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
     tags: ["Dashboard", "Analytics", "TypeScript"],
     category: "web",
   },
   {
     title: "Social Media App",
     description: "Engaging social platform for Gen Z with AR filters",
-    image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&q=80",
+    image:
+      "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&q=80",
     tags: ["Mobile", "Social", "Flutter"],
     category: "mobile",
   },
   {
     title: "NFT Marketplace",
     description: "Decentralized marketplace for digital art",
-    image: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=800&q=80",
+    image:
+      "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=800&q=80",
     tags: ["Web3", "Blockchain", "Solidity"],
     category: "web",
   },
   {
     title: "Fitness Tracker",
     description: "Smart fitness app with AI-powered workout plans",
-    image: "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=800&q=80",
+    image:
+      "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=800&q=80",
     tags: ["Health", "AI", "Mobile"],
     category: "mobile",
   },
   {
     title: "Music Streaming",
-    description: "High-quality music streaming with personalized recommendations",
-    image: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=800&q=80",
+    description:
+      "High-quality music streaming with personalized recommendations",
+    image:
+      "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=800&q=80",
     tags: ["Audio", "Streaming", "React"],
     category: "web",
   },
   {
     title: "Smart Home System",
     description: "IoT-powered home automation with voice control",
-    image: "https://images.unsplash.com/photo-1558002038-1055907df827?w=800&q=80",
+    image:
+      "https://images.unsplash.com/photo-1558002038-1055907df827?w=800&q=80",
     tags: ["IoT", "AI", "React Native"],
     category: "ai",
   },
   {
     title: "Financial Analytics",
     description: "AI-driven financial forecasting and analysis platform",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
+    image:
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
     tags: ["FinTech", "AI", "Python"],
     category: "ai",
   },
   {
     title: "Learning Management",
     description: "Interactive e-learning platform with live classes",
-    image: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=800&q=80",
+    image:
+      "https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=800&q=80",
     tags: ["Education", "Video", "React"],
     category: "web",
   },
@@ -88,12 +100,40 @@ const Portfolio = () => {
 
   return (
     <ThemeProvider>
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-background relative">
+        <FloatingElements />
         <Navigation />
-        
-        {/* Hero Section */}
-        <section className="pt-32 pb-16 relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-secondary/10" />
+
+        {/* Enhanced Hero Section */}
+        <section className="pt-32 pb-16 relative overflow-hidden hero-3d">
+          {/* Enhanced 3D gradient background */}
+          <div className="absolute inset-0 bg-gradient-to-br from-background via-card to-background opacity-90" />
+
+          {/* 3D Layered backgrounds */}
+          <div className="absolute inset-0 bg-gradient-to-tr from-primary/5 via-transparent to-secondary/5" />
+          <div className="absolute inset-0 bg-gradient-to-bl from-accent/5 via-transparent to-primary/5" />
+
+          {/* Radial glow effect */}
+          <div
+            className="absolute inset-0"
+            style={{ background: "var(--gradient-glow)" }}
+          />
+
+          {/* Floating geometric shapes */}
+          <motion.div
+            className="absolute top-20 left-10 w-20 h-20 border-2 border-primary/30 rounded-lg preserve-3d"
+            animate={{
+              rotateY: [0, 360],
+              rotateX: [0, 15, 0],
+              y: [0, -20, 0],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+
           <div className="container mx-auto px-4 relative z-10">
             <motion.div
               initial={{ opacity: 0, y: 30 }}

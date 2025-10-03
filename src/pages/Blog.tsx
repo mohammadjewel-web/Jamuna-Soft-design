@@ -1,55 +1,68 @@
 import { motion } from "framer-motion";
-import { Calendar, Clock, ArrowRight } from "lucide-react";
+import { Calendar, Clock, ArrowRight, Sparkles } from "lucide-react";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { Button } from "@/components/ui/button";
+import { FloatingElements } from "@/components/FloatingElements";
 
 const blogPosts = [
   {
     title: "The Future of AI in Software Development",
-    excerpt: "Explore how artificial intelligence is revolutionizing the way we build software and what it means for developers.",
-    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80",
+    excerpt:
+      "Explore how artificial intelligence is revolutionizing the way we build software and what it means for developers.",
+    image:
+      "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80",
     date: "Mar 15, 2024",
     readTime: "5 min read",
     category: "AI",
   },
   {
     title: "Building Scalable Web Applications",
-    excerpt: "Best practices and architectural patterns for creating web apps that can handle millions of users.",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
+    excerpt:
+      "Best practices and architectural patterns for creating web apps that can handle millions of users.",
+    image:
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
     date: "Mar 12, 2024",
     readTime: "8 min read",
     category: "Web Development",
   },
   {
     title: "Mobile App Design Trends 2024",
-    excerpt: "Discover the latest design trends shaping the mobile app landscape this year.",
-    image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&q=80",
+    excerpt:
+      "Discover the latest design trends shaping the mobile app landscape this year.",
+    image:
+      "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&q=80",
     date: "Mar 10, 2024",
     readTime: "6 min read",
     category: "Design",
   },
   {
     title: "Cybersecurity Best Practices",
-    excerpt: "Essential security measures every developer should implement to protect user data.",
-    image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&q=80",
+    excerpt:
+      "Essential security measures every developer should implement to protect user data.",
+    image:
+      "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&q=80",
     date: "Mar 8, 2024",
     readTime: "7 min read",
     category: "Security",
   },
   {
     title: "The Rise of Edge Computing",
-    excerpt: "How edge computing is transforming cloud architecture and improving application performance.",
-    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80",
+    excerpt:
+      "How edge computing is transforming cloud architecture and improving application performance.",
+    image:
+      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80",
     date: "Mar 5, 2024",
     readTime: "6 min read",
     category: "Cloud",
   },
   {
     title: "Progressive Web Apps: A Complete Guide",
-    excerpt: "Everything you need to know about building PWAs that work seamlessly across all platforms.",
-    image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&q=80",
+    excerpt:
+      "Everything you need to know about building PWAs that work seamlessly across all platforms.",
+    image:
+      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&q=80",
     date: "Mar 1, 2024",
     readTime: "10 min read",
     category: "Web Development",
@@ -59,9 +72,10 @@ const blogPosts = [
 const Blog = () => {
   return (
     <ThemeProvider>
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-background relative">
+        <FloatingElements />
         <Navigation />
-        
+
         {/* Hero Section */}
         <section className="pt-32 pb-16 relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-secondary/10" />
@@ -168,7 +182,7 @@ const Blog = () => {
                       {post.title}
                     </h3>
                     <p className="text-muted-foreground mb-4">{post.excerpt}</p>
-                    
+
                     <div className="flex items-center justify-between text-sm text-muted-foreground">
                       <div className="flex items-center gap-2">
                         <Calendar className="w-4 h-4" />

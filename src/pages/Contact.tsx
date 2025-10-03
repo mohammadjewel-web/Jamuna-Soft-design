@@ -1,10 +1,11 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { Mail, Phone, MapPin, Send } from "lucide-react";
+import { Mail, Phone, MapPin, Send, Sparkles, Star } from "lucide-react";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { Button } from "@/components/ui/button";
+import { FloatingElements } from "@/components/FloatingElements";
 import { toast } from "sonner";
 
 const Contact = () => {
@@ -42,7 +43,8 @@ const Contact = () => {
 
   return (
     <ThemeProvider>
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-background relative">
+        <FloatingElements />
         <Navigation />
 
         {/* Hero Section */}
